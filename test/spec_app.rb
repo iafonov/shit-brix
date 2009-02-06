@@ -1,4 +1,4 @@
-require 'shitbrix.rb'
+require 'test/test_app.rb'
 
 describe MegaSuperApplication do
   before(:each) do
