@@ -12,13 +12,11 @@ class FakeConcreteService
   end
 end
 
-class ClientShit 
-  def initialize(service)
-    @service = service
-  end
+class ClientShit
+  inject :concrete_service      
 
-  def perform
-    @service.go
+  def perform    
+    @concrete_service.go
   end
 end
 
@@ -30,13 +28,12 @@ end
 
 class MegaSuperApplication
   def initialize
-    injector = ShitBrix.create_injector(ApplicationModule.new)
-
-    service = injector.get_instance(:concrete_service)
-    @client = ClientShit.new(service)
+    ShitBrix.create_injector(ApplicationModule.new)
+    
+    @client = ClientShit.new
   end
 
-  def do_real_work
+  def do_real_work    
     @client.perform
   end
 end
