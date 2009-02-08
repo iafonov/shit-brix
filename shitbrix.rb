@@ -8,9 +8,9 @@ class Injector
   end
 end
 
-class ShitBrix 
-  def self.create_injector(bind_module)
-    @@injector = Injector.new(bind_module)
+class ShitBrix  
+  def self.create_injector(bind_module)    
+    @@injector = Injector.new(bind_module)    
   end
 
   def self.injector

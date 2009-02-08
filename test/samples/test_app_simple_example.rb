@@ -1,39 +1,32 @@
-require 'shitbrix.rb'
-
-class ConcreteService
-  def go
-    "concrete"
+class Service
+  def go()
+    "work"
   end
 end
 
-class FakeConcreteService
-  def go
-    "fake"
-  end
-end
+class Action
+  inject :service  
 
-class ClientShit
-  inject :concrete_service      
-
-  def perform    
-    @concrete_service.go
+  def perform()
+    @service.go
   end
 end
 
 class ApplicationModule < AbstractModule
   def configure()    
-    bind(:concrete_service) { ConcreteService.new }
+    bind(:service) { Service.new }
+    bind(:action) { Action.new }   
   end
 end
 
-class MegaSuperApplication
+class Application
   def initialize
     ShitBrix.create_injector(ApplicationModule.new)
     
-    @client = ClientShit.new
+    @action = ShitBrix.injector.get_instance(:action)
   end
 
   def do_real_work    
-    @client.perform
+    @action.perform
   end
 end

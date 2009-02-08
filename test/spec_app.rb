@@ -1,10 +1,14 @@
 require 'shitbrix.rb'
 
 describe ShitBrix do  
-  it "should build mega super application and inject concrete service" do    
+  before(:each) do
+    ShitBrix.instance_variable_set(:@injector, nil)
+  end
+
+  it "should build application and inject dependent service to action" do    
     require 'test/samples/test_app_simple_example.rb'
-    app = MegaSuperApplication.new
-    app.do_real_work.should == "concrete"
+    app = Application.new
+    app.do_real_work.should == "work"
   end
 
   it "should inject nested dependencies" do
@@ -20,5 +24,9 @@ describe ShitBrix do
   it "should throw exception if there is no binding for injected class" do
     require 'test/samples/test_app_missing_binding.rb'
     lambda { Application.new }.should raise_error RuntimeError, "No binding for 'action'"
+  end
+
+  it "should throw exception if there is more than one injector created" do
+    
   end
 end
