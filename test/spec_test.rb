@@ -1,10 +1,6 @@
 require 'lib/shitbrix.rb'
 
-describe ShitBrix do  
-  before(:each) do
-    ShitBrix.instance_variable_set(:@injector, nil)
-  end
-
+describe ShitBrix do    
   it "should build application and inject dependent service to action" do    
     require 'test/samples/test_app_simple_example.rb'
     app = Application.new

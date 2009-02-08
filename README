@@ -1,1 +1,1 @@
-Simple DI container for ruby. Mostly inspired by Guice.
+Simple DI container for ruby. Mostly inspired by Guice. View test/spec_test.rb and linked samples for basic usage.
