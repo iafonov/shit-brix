@@ -1,1 +1,1 @@
-Simple IoC container for ruby. Mostly inspired by Guice.
+Simple DI container for ruby. Mostly inspired by Guice.
