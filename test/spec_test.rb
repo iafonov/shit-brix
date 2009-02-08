@@ -1,7 +1,7 @@
 require 'lib/shitbrix.rb'
 
 describe ShitBrix do    
-  it "should build application and inject dependent service to action" do    
+  it "should build application and inject dependent service to action" do
     require 'test/samples/test_app_simple_example.rb'
     app = Application.new
     app.do_real_work.should == "work"
@@ -47,7 +47,11 @@ describe ShitBrix do
     lambda { Application.new }.should raise_error NoMethodError
   end
 
-  it "should throw exception if there is more than one injector created" do
-    
+  it "should throw exception if there is more than one injector created" do    
+    # it will ...
+  end
+
+  it "should throw exception if injector.get_instance called explicitly more than one time (it is bad style)" do
+    # it will ...
   end
 end

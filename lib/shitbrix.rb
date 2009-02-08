@@ -4,4 +4,4 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'shitbrix/injector.rb'
 require 'shitbrix/abstract_module.rb'
 require 'shitbrix/base_container.rb'
-require 'shitbrix/class_extension.rb'
+require 'shitbrix/class_extensions.rb'
