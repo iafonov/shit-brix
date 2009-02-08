@@ -29,7 +29,12 @@ class AbstractModule
   end
 
   def get_instance(clazz)
-    @objects[clazz].call
+    initializer = @objects[clazz]
+    if initializer != nil
+      @objects[clazz].call
+    else
+      raise RuntimeError, "No binding for '#{clazz}'"
+    end
   end
 end
 

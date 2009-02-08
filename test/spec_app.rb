@@ -16,4 +16,9 @@ describe ShitBrix do
     app.dispatcher.action.class.should == Action
     app.dispatcher.action.service.class.should == Service
   end
+
+  it "should throw exception if there is no binding for injected class" do
+    require 'test/samples/test_app_missing_binding.rb'
+    lambda { Application.new }.should raise_error RuntimeError, "No binding for 'action'"
+  end
 end
