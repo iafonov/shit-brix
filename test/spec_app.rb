@@ -2,7 +2,7 @@ require 'shitbrix.rb'
 
 describe ShitBrix do  
   it "should build mega super application and inject concrete service" do    
-    require 'test/samples/test_app1.rb'
+    require 'test/samples/test_app_simple_example.rb'
     app = MegaSuperApplication.new
     app.do_real_work.should == "concrete"
   end
