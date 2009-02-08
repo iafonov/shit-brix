@@ -1,4 +1,4 @@
-require 'shitbrix.rb'
+require 'lib/shitbrix.rb'
 
 describe ShitBrix do  
   before(:each) do
