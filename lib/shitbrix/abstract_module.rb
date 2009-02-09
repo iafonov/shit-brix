@@ -13,8 +13,12 @@ class AbstractModule
     end
   end
 
-  def to(&initializer)
+  def to(&initializer)    
     @bindings[@key] = Proc.new(&initializer)    
+  end
+
+  def to_class(clazz)
+    @bindings[@key] = clazz
   end
 
   def install(bind_module_class)    
@@ -23,10 +27,14 @@ class AbstractModule
 
   def get_instance(clazz)
     initializer = @bindings[clazz]
-    if initializer != nil
-      @bindings[clazz].call
-    else
-      raise RuntimeError, "No binding for '#{clazz}'"
+
+    if initializer.instance_of? Proc
+      initializer.call
+    else if initializer.instance_of? Class      
+        initializer.new
+      else    
+        raise RuntimeError, "No binding for '#{clazz}'"
+      end
     end
   end  
 

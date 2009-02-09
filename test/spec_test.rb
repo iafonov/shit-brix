@@ -7,6 +7,12 @@ describe ShitBrix do
     app.do_real_work.should == "work"
   end
 
+  it "should bind dependencies given as class and instaniate them" do
+    require 'test/samples/test_app_binding_to_class.rb'
+    app = Application.new
+    app.do_real_work.should == "work"
+  end
+
   it "should inject nested dependencies" do
     require 'test/samples/test_app_nested_inject.rb'
     app = Application.new
@@ -25,7 +31,7 @@ describe ShitBrix do
     app.dispatcher.class.should == Dispatcher
     app.dispatcher.action.class.should == Action
     app.dispatcher.action.service.class.should == Service
-  end
+  end    
   
   it "should throw exception if there is double binding for class" do
     require 'test/samples/test_app_double_binding.rb'
