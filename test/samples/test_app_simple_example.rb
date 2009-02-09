@@ -14,8 +14,8 @@ end
 
 class ApplicationModule < AbstractModule
   def configure()    
-    bind(:service) { Service.new }
-    bind(:action) { Action.new }   
+    bind(:service).to { Service.new }
+    bind(:action).to { Action.new }   
   end
 end
 

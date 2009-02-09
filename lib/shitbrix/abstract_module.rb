@@ -4,12 +4,17 @@ class AbstractModule
     configure
   end
 
-  def bind(key, &initializer) 
+  def bind(key) 
     if @bindings.has_key?(key)
       raise RuntimeError, "Multiply binding for one key not allowed (Errorneous key: '#{key}')"
     else
-      @bindings[key] = Proc.new(&initializer)    
+      @key = key
+      self
     end
+  end
+
+  def to(&initializer)
+    @bindings[@key] = Proc.new(&initializer)    
   end
 
   def install(bind_module_class)    
@@ -34,7 +39,7 @@ protected
 
   def join(bind_module)
     bind_module.bindings.each do |key, initializer|
-      bind(key, &initializer)      
+      bind(key).to &initializer
     end
   end
 end
