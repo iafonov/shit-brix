@@ -24,13 +24,14 @@ end
 
 class ServiceModule < AbstractModule
   def configure()    
-    bind(:service).to { Service.new }    
+    bind(:service).to(Service)
   end
 end
 
 class ActionModule < AbstractModule
-  def configure()        
-    bind(:action).to { Action.new }    
+  def configure()      
+    action = Action.new  
+    bind(:action).to(action)
   end
 end
 

@@ -1,3 +1,22 @@
+class Bind  
+  def initialize(parent_module, key)
+    @parent_module = parent_module
+    @key = key
+  end
+
+  def to(*args, &initializer)    
+    if block_given?
+      @parent_module.bindings[@key] = Proc.new(&initializer)    
+    else       
+      @parent_module.bindings[@key] = args[0]
+    end
+  end
+
+  def to_class(clazz)
+    to(clazz)
+  end
+end
+
 class AbstractModule
   def initialize    
     @bindings = Hash.new
@@ -7,19 +26,10 @@ class AbstractModule
   def bind(key) 
     if @bindings.has_key?(key)
       raise RuntimeError, "Multiply binding for one key not allowed (Errorneous key: '#{key}')"
-    else
-      @key = key
-      self
+    else      
+      Bind.new(self, key)
     end
-  end
-
-  def to(&initializer)    
-    @bindings[@key] = Proc.new(&initializer)    
-  end
-
-  def to_class(clazz)
-    @bindings[@key] = clazz
-  end
+  end  
 
   def install(bind_module_class)    
     join(bind_module_class.new)
@@ -30,24 +40,25 @@ class AbstractModule
 
     if initializer.instance_of? Proc
       initializer.call
-    else if initializer.instance_of? Class      
-        initializer.new
-      else    
-        raise RuntimeError, "No binding for '#{clazz}'"
-      end
+    elsif initializer.instance_of? Class      
+      initializer.new
+    elsif initializer.kind_of? Action
+      initializer
+    else    
+      raise RuntimeError, "No binding for '#{clazz}'"      
     end
   end  
+  
+  attr_accessor :bindings # for recursive dependency search
 
-protected
-  attr_accessor :bindings  
-
+protected    
   def configure
     raise NoMethodError, "AbstractModule should not be instaniated explicitly. Extend it and override configure method."
   end
-
+  
   def join(bind_module)
     bind_module.bindings.each do |key, initializer|
-      bind(key).to &initializer
+      bind(key).to initializer
     end
   end
 end
