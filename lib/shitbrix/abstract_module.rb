@@ -1,14 +1,30 @@
-class Bind  
+class Binder
   def initialize(parent_module, key)
     @parent_module = parent_module
     @key = key
   end
+end
 
+class ClassBinder < Binder
+  def as_singleton
+    
+  end
+
+  def as_eager_singleton
+    @parent_module.bindings[@key] = @parent_module.bindings[@key].new
+  end
+end
+
+class CommonBinder < Binder  
   def to(*args, &initializer)    
     if block_given?
       @parent_module.bindings[@key] = Proc.new(&initializer)    
     else
       @parent_module.bindings[@key] = args[0]
+
+      if args[0].instance_of? Class      
+        return ClassBinder.new(@parent_module, @key)
+      end
     end
   end
 end
@@ -23,7 +39,7 @@ class AbstractModule
     if @bindings.has_key?(key)
       raise RuntimeError, "Multiply binding for one key not allowed (Errorneous key: '#{key}')"
     else      
-      Bind.new(self, key)
+      CommonBinder.new(self, key)
     end
   end  
 

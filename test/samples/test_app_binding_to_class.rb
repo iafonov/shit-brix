@@ -14,8 +14,8 @@ end
 
 class ApplicationModule < AbstractModule
   def configure()    
-    bind(:service).to(Service)
-    bind(:action).to(Action)
+    bind(:service).to(Service).as_singleton
+    bind(:action).to(Action).as_eager_singleton
   end
 end
 
