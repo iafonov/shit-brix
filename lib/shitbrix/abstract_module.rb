@@ -7,7 +7,7 @@ class Bind
   def to(*args, &initializer)    
     if block_given?
       @parent_module.bindings[@key] = Proc.new(&initializer)    
-    else       
+    else
       @parent_module.bindings[@key] = args[0]
     end
   end
@@ -38,7 +38,7 @@ class AbstractModule
       initializer.call
     elsif initializer.instance_of? Class      
       initializer.new
-    elsif initializer.kind_of? Action
+    elsif initializer != nil
       initializer
     else    
       raise RuntimeError, "No binding for '#{clazz}'"      
