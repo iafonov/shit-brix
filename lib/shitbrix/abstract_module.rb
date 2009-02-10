@@ -11,10 +11,6 @@ class Bind
       @parent_module.bindings[@key] = args[0]
     end
   end
-
-  def to_class(clazz)
-    to(clazz)
-  end
 end
 
 class AbstractModule
