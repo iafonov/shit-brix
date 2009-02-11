@@ -48,7 +48,7 @@ class Application
 
   def initialize
     ShitBrix.create_injector(ApplicationModule.new)    
-    @dispatcher = ShitBrix.injector.get_instance(:dispatcher)
+    @dispatcher = ShitBrix.injector.get_instance(:dispatcher)    
   end
 
   def do_real_work    

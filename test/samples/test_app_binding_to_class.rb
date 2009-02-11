@@ -5,7 +5,7 @@ class Service
 end
 
 class Action
-  inject :service  
+  inject :service 
 
   def perform()
     @service.go
