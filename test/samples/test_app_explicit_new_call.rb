@@ -15,6 +15,10 @@ end
 class ApplicationModule < AbstractModule
   def configure()    
     bind(:service).to { Service.new }
+
+    action = Action.new
+    bind(:explicit_action).to(action)
+
     bind(:action).to(Action).as_singleton
   end
 end

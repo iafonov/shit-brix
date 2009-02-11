@@ -29,9 +29,8 @@ class ServiceModule < AbstractModule
 end
 
 class ActionModule < AbstractModule
-  def configure()      
-    action = Action.new  
-    bind(:action).to(action)
+  def configure()          
+    bind(:action).to(Action)
   end
 end
 
@@ -44,11 +43,11 @@ class ApplicationModule < AbstractModule
 end
 
 class Application
-  attr_accessor :dispatcher
+  attr_accessor :dispatcher  
 
   def initialize
     ShitBrix.create_injector(ApplicationModule.new)    
-    @dispatcher = ShitBrix.injector.get_instance(:dispatcher)
+    @dispatcher = ShitBrix.injector.get_instance(:dispatcher)    
   end
 
   def do_real_work    

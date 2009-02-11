@@ -1,4 +1,6 @@
 class Class
+  attr_accessor :injection_requests
+
   def inject(request)    
     if (@injection_requests == nil) then 
       @injection_requests = Array.new      

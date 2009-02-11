@@ -38,7 +38,7 @@ class Application
     @dispatcher = ShitBrix.injector.get_instance(:dispatcher)
   end
 
-  def do_real_work    
+  def do_real_work        
     @dispatcher.perform
   end
 end
