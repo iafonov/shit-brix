@@ -25,12 +25,15 @@ end
 
 class Application
   def initialize
-    ShitBrix.create_injector(ApplicationModule.new)
-    
-    @action = ShitBrix.injector.get_instance(:action)
+    ShitBrix.init(ApplicationModule.new)    
+    @action = ShitBrix.get_instance(:action)
   end
 
   def do_real_work    
     @action.perform
+  end
+
+  def action
+    ShitBrix.get_instance(:explicit_action)
   end
 end

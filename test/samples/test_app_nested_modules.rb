@@ -46,8 +46,8 @@ class Application
   attr_accessor :dispatcher  
 
   def initialize
-    ShitBrix.create_injector(ApplicationModule.new)    
-    @dispatcher = ShitBrix.injector.get_instance(:dispatcher)    
+    ShitBrix.init(ApplicationModule.new)    
+    @dispatcher = ShitBrix.get_instance(:dispatcher)    
   end
 
   def do_real_work    

@@ -55,12 +55,12 @@ class Application
   def initialize
     # In the root 'initialize' method of your application you should create
     # injector and pass AbstractModule implementation to it. 
-    ShitBrix.create_injector(ApplicationModule.new)
+    ShitBrix.init(ApplicationModule.new)
 
     # You should have only one explicit call of ShitBrix.injector.get_instance
     # in your application. You should explicitly instantiate only root component of
     # your application and all dependencies will be injected to it hierarchically
-    @action = ShitBrix.injector.get_instance(:action)
+    @action = ShitBrix.get_instance(:action)
   end
 
   def do_real_work    
