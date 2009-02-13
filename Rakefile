@@ -11,7 +11,7 @@ task :test do
   d = Dir.new("test")
   d.each  {|file|
     if file.include? "spec_"
-      sh "spec test/#{file}"
+      sh "spec --colour test/#{file}"
     end
   }
 

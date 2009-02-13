@@ -32,8 +32,10 @@ class ClassBinder
   def as_eager_singleton    
     instance = @class.__new
     
-    @class.injection_requests.each do |request|         
-      instance.instance_variable_set("@#{request}", @parent_module.get_instance(request))
+    if (@class.injection_requests != nil)
+      @class.injection_requests.each do |request|         
+        instance.instance_variable_set("@#{request}", @parent_module.get_instance(request))
+      end
     end
 
     @parent_module.bindings[@key] = Binding.for_object(instance)

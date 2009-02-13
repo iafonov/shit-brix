@@ -21,7 +21,7 @@ end
 
 class Application
   def initialize
-    ShitBrix.init(ApplicationModule.new)    
+    ShitBrix.init(AbstractModule.new)    
     @action = ShitBrix.get_instance(:action)
   end
 

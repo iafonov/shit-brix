@@ -1,7 +1,6 @@
 Simple DI container for ruby. Mostly inspired by Guice. View test/spec_test.rb and linked samples for basic usage.
 
 Here is simple example describing basic DI concepts, and demonstrates ShitBrix container usage techniques
-
 class Service
   def go()
     # do something useful
@@ -45,8 +44,18 @@ class ApplicationModule < AbstractModule
     bind(:service).to{ Service.new }
 
     # You can bind dependencies to classes, class constructor (only default for
-    # now) will be called on injection
+    # now) will be called on every injection, all requested dependencies will be 
+    # injected
     bind(:action).to(Action)
+
+    # You can bind dependency to class and add scope for class. As_singleton
+    # tells ShitBrix to use only one instance for application. Constructor will
+    # be called only once, on the first injection (lazy initialization)
+    bind(:singleton_service).to(Service).as_singleton
+
+    # As_eager_singleton modifier works same as as_singleton, but object will be
+    # constructed immediately after bind. (eager initialization)    
+    bind(:another_singleton_service).to(Service).as_eager_singleton
 
     # You can bind dependencies directly to objects and they will be directly
     # injected in correct place
@@ -57,14 +66,14 @@ end
 
 class Application
   def initialize
-    # In the root 'initialize' method of your application you should create
-    # injector and pass AbstractModule implementation to it. 
-    ShitBrix.create_injector(ApplicationModule.new)    
+    # In the root 'initialize' method of your application you should init
+    # container and pass AbstractModule implementation to it. 
+    ShitBrix.init(ApplicationModule.new)
 
-    # You should have only one explicit call of ShitBrix.injector.get_instance
+    # You should have only one explicit call of ShitBrix.get_instance
     # in your application. You should explicitly instantiate only root component of
     # your application and all dependencies will be injected to it hierarchically
-    @action = ShitBrix.injector.get_instance(:action)
+    @action = ShitBrix.get_instance(:action)
   end
 
   def do_real_work    
