@@ -11,8 +11,8 @@ end
 class Action
   # To inject dependency call inject method, this method is automatically added
   # to all classes of your application, when the object will be instantiated through
-  # injector (or as nested dependency in hierarchy) instance variable will be
-  #created automatically
+  # ShitBrix.get_instance(:dep) call (or as nested dependency in hierarchy) instance 
+  # variable will be created automatically
   inject :service  
 
   def perform()
